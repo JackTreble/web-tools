@@ -1,26 +1,30 @@
-# Business Brief — web-tools
+# web-tools Initiative: Business Brief
 
-## About
+## 1. Vision & Mission
+To eliminate the "Subscription Tax" on simple digital utilities. We build high-quality, open-source, **100% client-side** web tools that serve as free alternatives to paid SaaS products.
 
-We create simple in browser local web tools to provide free alternatives to paid tools
+## 2. Core Operating Principles
+* **Privacy First:** User data never leaves the browser. No databases, no sign-ups, no tracking.
+* **Zero-Cloud Footprint:** Tools must be hosted via GitHub Pages and require no backend/server-side logic.
+* **80/20 Value:** Focus on the "Simple Case." We aim for 80% of the utility of a paid tool with 20% of the complexity.
+* **Modern Web Standards:** Use ES Modules (ESM) and native Browser APIs (Canvas, File System, Web Crypto).
 
-## Research Focus
+## 3. Research Focus (The "Market Gaps")
+Identify tools currently behind paywalls, cluttered with ads, or requiring unnecessary accounts. Examples include:
+* **Document Processing:** PDF merging/splitting/recoloring, Markdown to PDF, CSV to JSON.
+* **Media Utilities:** Client-side image compression, SVG optimizers, EXIF data strippers.
+* **Developer Tools:** Base64 encoders, JWT decoders, Cron expression generators.
 
-Commonly searched for tools that can be be implemented in browser for free.
+## 4. Execution Framework (The Squad Loop)
+1.  **Intelligence:** Identify a "Market Gap" and verify technical feasibility via Browser APIs.
+2.  **Product:** Convert a gap into a formal `spec.md` using the **Spec-Kit** template.
+3.  **Engineering:** Implement the code in a clean `index.html`, `style.css`, and `main.js` structure.
+4.  **Board (Human):** Final sign-off on PRs before deployment to `tools.treble.dev`.
 
-## Priority
-
-**#1**: Deliver value in the research focus above.
-
-## Pressure
-
-LOW — Learning phase. Explore, experiment, report findings.
-
-## Decision Framework
-
-1. Does this advance our focus area?
-2. Is there a simpler approach for 80% of the value?
-3. What's the opportunity cost?
+## 5. Decision Heuristics for Agents
+1.  Does this advance our focus on free browser-based alternatives?
+2.  Can this be achieved without a server? (If no, reject).
+3.  Is there a simpler approach that delivers the core value?
 
 ---
 
