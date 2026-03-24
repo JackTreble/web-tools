@@ -12,15 +12,15 @@ Vanilla HTML, CSS, and JavaScript are the default implementation stack. Build to
 
 Rationale: users must be able to inspect, copy, host, and preserve these tools without a specialized toolchain.
 
-### III. The Local-First Guarantee
-A user MUST be able to clone or download this repository, disconnect from the network, and continue using the shipped tools exactly as intended. Core functionality MUST NOT depend on live internet access, remote configuration, remote fonts, remote scripts, remote stylesheets, remote storage, or remote licensing checks. If a dependency is required, it MUST be stored locally in the repository.
+### III. The Local-First Preference
+A user SHOULD be able to clone or download this repository and use shipped tools with minimal setup as ordinary static files. Core functionality MUST NOT depend on remote configuration, remote storage, remote licensing checks, or server-side processing. CDN-hosted browser libraries and stylesheets MAY be used when they are stable, read-only runtime dependencies and do not transmit user data off-device.
 
-Rationale: offline operation is the concrete test for independence, resilience, and user control.
+Rationale: simple static delivery remains important, while allowing selective CDN usage can reduce duplication for browser-only utilities.
 
 ### IV. Security by Isolation
-This repository MUST NOT include third-party tracking, analytics, telemetry beacons, fingerprinting code, ad scripts, or CDN-hosted runtime assets. Third-party libraries are permitted only when bundled locally, version-pinned, auditable, and necessary. Network access from tools MUST be treated as prohibited by default; exceptions require explicit constitutional amendment.
+This repository MUST NOT include third-party tracking, analytics, telemetry beacons, fingerprinting code, ad scripts, or runtime calls that send user-provided content to external services. Third-party libraries are permitted when they are necessary, auditable, and either bundled locally or loaded from stable CDN sources. Network access from tools MUST be treated as prohibited by default for data processing and feature execution.
 
-Rationale: every external request creates privacy leakage, integrity risk, and avoidable failure modes.
+Rationale: privacy leakage and integrity risk come primarily from transmitting user data or executing uncontrolled third-party behavior.
 
 ### V. Agentic Interoperability
 Repository structure MUST remain legible and writable to automated agents. The `.agents/` and `.specify/` directories, along with their expected conventions for squads, memory, templates, and workflow artifacts, MUST be preserved and updated consistently. Changes that break gh-aw, squads, or related agent workflows are not allowed unless accompanied by a documented migration plan and synchronized updates to all affected agent-readable files.
@@ -31,19 +31,23 @@ Rationale: automation only works when project conventions are stable, explicit, 
 
 1. Web-Tools is a static, browser-executed project. Backends, serverless handlers, remote databases, and data-processing services are prohibited.
 2. Single-file tools are preferred when practical. When separation is justified, use plain static assets with minimal folder complexity.
-3. All shipped assets, including fonts, scripts, styles, icons, and worker files, MUST be stored locally in the repository.
-4. User files and derived content MUST remain local to the browser unless the user explicitly downloads or saves them.
-5. New dependencies require a written justification covering necessity, local bundling, license acceptability, and privacy impact.
-6. Features that introduce subscriptions, gating, watermarking, account requirements, or artificial usage limits are forbidden.
+3. New tools SHOULD expose a simple root-level page named `/[feature-slug-no-number].html` when appropriate for direct URLs.
+4. Tool-specific scripts and assets SHOULD live under `/tools/[feature-slug-no-number]/`, while reusable cross-tool code and styling SHOULD live under `/scripts/` and `/styles/`.
+5. Root HTML pages for tools SHOULD include page metadata and a `<script type="application/ld+json">` block with structured data appropriate to the tool.
+6. Shipped assets may be stored locally in the repository or loaded from stable CDN sources when the dependency remains browser-side and does not violate the privacy constraints above.
+7. User files and derived content MUST remain local to the browser unless the user explicitly downloads or saves them.
+8. New dependencies require a written justification covering necessity, delivery approach, license acceptability, and privacy impact.
+9. Features that introduce subscriptions, gating, watermarking, account requirements, or artificial usage limits are forbidden.
 
 ## Development Workflow and Review Gates
 
 1. Every change MUST be reviewed against all five Core Principles before merge.
-2. Every new tool or major feature MUST document how it satisfies offline operation, local-only processing, and zero external data transfer.
-3. If local bundling replaces a third-party asset, the checked-in artifact MUST be the one used by production pages.
-4. If a development-only build step exists, reviewers MUST verify that the final committed output is static, portable, and independent of that build step.
-5. Any proposal that introduces remote calls, hosted dependencies, hidden telemetry, or agent-breaking directory changes MUST be rejected as non-compliant.
-6. README, instructions, specifications, and agent guidance MUST remain aligned with this constitution when relevant changes are made.
+2. Every new tool or major feature MUST document how it satisfies local-only processing and zero external transfer of user data.
+3. If a third-party asset is loaded from a CDN, reviewers MUST verify that it is a static browser dependency and not a remote processing service.
+4. If local bundling replaces a third-party asset, the checked-in artifact MUST be the one used by production pages.
+5. If a development-only build step exists, reviewers MUST verify that the final committed output is static, portable, and independent of that build step.
+6. Any proposal that introduces remote data processing, hidden telemetry, or agent-breaking directory changes MUST be rejected as non-compliant.
+7. README, instructions, specifications, and agent guidance MUST remain aligned with this constitution when relevant changes are made.
 
 ## Governance
 
@@ -60,4 +64,4 @@ Amendments require all of the following:
 
 Compliance is mandatory. Pull requests, agent runs, and maintenance updates MUST treat violations of these rules as blocking defects, not optional follow-up work.
 
-**Version**: 1.0.0 | **Ratified**: 2026-03-24 | **Last Amended**: 2026-03-24
+**Version**: 2.0.0 | **Ratified**: 2026-03-24 | **Last Amended**: 2026-03-24
