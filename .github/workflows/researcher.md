@@ -15,7 +15,7 @@ engine: claude
 
 safe-outputs:
   create-issue:
-    labels: ["status:research-needed", "agent-discovery"]
+    labels: ["status:approved", "agent-discovery"]
 
 tools:
   web: {}
@@ -100,6 +100,8 @@ Use the `create-issue` safe-output only after the discovery pass is complete and
 
 Create one issue per validated opportunity.
 Only create issues for candidates that are not already represented in `/specs/**`, open issues, or closed issues.
+
+> **Pipeline note**: Issues are created with the `status:approved` label, which automatically triggers the Product Architect workflow to generate a Spec-Kit PR. No manual re-labeling is needed. The first human review gate is the generated spec PR.
 
 ## Proposal Requirements
 - **Title:** [PROPOSAL] - [Tool Name]
