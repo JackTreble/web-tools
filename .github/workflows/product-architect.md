@@ -49,12 +49,12 @@ Transform the triggering approved issue into a formal Spec-Kit and route it back
     - Issue number and URL
     - Full issue description/body
     - Any relevant labels or acceptance notes from the issue
-  - Create a feature directory in `.specify/[feature-slug]/`
-  - Generate `spec.md` following `.specify/templates/spec-template.md`
-  - Generate `tasks.md` following `.specify/templates/tasks-template.md`
+  - Create a feature directory in `specs/[feature-slug]/`
+  - Generate `spec.md` following `specs/templates/spec-template.md`
+  - Generate `tasks.md` following `specs/templates/tasks-template.md`
 4. **Validate the Output**
   - Ensure the spec and tasks are grounded in the triggering issue rather than invented scope.
-  - Ensure the spec adheres to the "No-Backend" rule in `.agents/BUSINESS_BRIEF.md`:
+  - Ensure the spec adheres to the "No-Backend" rule in `AGENTS.md`:
     - Browser APIs only (Canvas, File System, Crypto, etc.)
     - No server-side logic
     - GitHub Pages compatible
@@ -65,12 +65,24 @@ Transform the triggering approved issue into a formal Spec-Kit and route it back
 6. **Comment on the Issue with the PR Link**
   - Post a comment on the same triggering issue after the PR is created.
   - The comment must include a direct link to the created PR.
+  - The comment must include direct markdown links to the generated `spec.md` and `tasks.md` files.
+  - Build file links using the repository URL plus the generated branch or PR head ref so the links open the exact files created by this run.
+  - The comment should feel polished and easy to scan.
+  - Mention that the spec draft has been generated from the approved issue and is ready for review.
   - Use this format:
     ```
-    Spec-Kit initiated! 📋
-    PR: [pull-request-url]
-    Spec: `.specify/[feature-slug]/spec.md`
-    Tasks: `.specify/[feature-slug]/tasks.md`
+    Spec draft ready for review ✅
+
+    I generated the initial Spec-Kit from this approved issue and opened a PR for review.
+
+    - PR: [pull-request-url]
+    - Spec: [specs/[feature-slug]/spec.md]([spec-file-url])
+    - Tasks: [specs/[feature-slug]/tasks.md]([tasks-file-url])
+
+    What happens next:
+    1. Review the generated spec and task breakdown.
+    2. Confirm the scope still matches the approved issue.
+    3. Request edits or approve the PR for the next stage.
     ```
 7. **Failure Handling**
   - If spec generation or PR creation fails, leave a concise issue comment stating what failed and what needs human follow-up.

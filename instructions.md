@@ -12,6 +12,7 @@ This project exists to fight back against planned obsolescence, dark patterns, f
 * **Absolute Privacy:** Files must **never** leave the user's device. 
 * **Zero Backend:** All processing must happen locally in the browser. Do not suggest or implement Node.js, Python backends, AWS, or databases.
 * **Anti-Bloat:** Solve the user's exact problem as simply as possible. 
+* **No Duplicate Tools:** Before proposing a new utility, check existing specs plus open and closed issue history so we do not reinvent work already explored.
 
 ---
 
@@ -27,6 +28,21 @@ We prioritize simplicity and accessibility over modern framework trends.
 
 ## 🎨 3. Design Language & UI/UX
 The UI must feel clean, modern, trustworthy, and native. 
+
+### Usability Baseline
+Whenever relevant to the tool, include:
+- undo, reset, or clear actions
+- user-selectable colors when color affects output
+- quality, compression, or resolution controls when output fidelity can vary
+- preview before export for destructive or hard-to-reverse transformations
+- clear validation, understandable errors, and recovery paths
+- safe defaults for non-technical users
+
+### SEO & Discoverability
+- Assume each tool will be published on `tools.treble.dev`.
+- Use clear, literal naming that matches what a user would search for.
+- Include a descriptive `<title>`, strong meta description, and meaningful headings.
+- Make the page useful as a landing page: explain what the tool does, who it is for, and how to use it.
 
 ### CSS Variables (Use these consistently)
 ```css
