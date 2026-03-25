@@ -41,6 +41,6 @@ When adding tools:
 
 - keep processing in the browser
 - prefer vanilla HTML, CSS, and JavaScript
-- load third-party runtime assets from the shared `/vendor/` directory
+- load third-party runtime assets from the shared `/tools/vendor/` directory
 - use descriptive titles, meta descriptions, and clear how-to content
 - include practical controls such as undo, reset, preview, color selection, or quality settings when relevant

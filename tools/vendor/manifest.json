@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-03-25T20:29:23.076Z",
+  "generatedAt": "2026-03-25T19:59:05.248Z",
   "note": "Runtime assets are checked into /vendor. node_modules is development-only and must not be used at runtime.",
   "packages": {
     "pdfjs": {
       "package": "pdfjs-dist",
       "version": "3.11.174",
       "files": [
-        "tools/vendor/pdfjs/pdf.min.js",
-        "tools/vendor/pdfjs/pdf.worker.min.js"
+        "vendor/pdfjs/pdf.min.js",
+        "vendor/pdfjs/pdf.worker.min.js"
       ]
     },
     "pdfLib": {
@@ -33,7 +33,7 @@
         "tools/vendor/ffmpeg/ffmpeg.js",
         "tools/vendor/ffmpeg/ffmpeg-core.js",
         "tools/vendor/ffmpeg/ffmpeg-core.wasm",
-        "vendor/ffmpeg/814.ffmpeg.js"
+        "tools/vendor/ffmpeg/814.ffmpeg.js"
       ]
     }
   }

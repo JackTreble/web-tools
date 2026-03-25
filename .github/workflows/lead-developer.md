@@ -17,7 +17,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["scripts/**/*", "styles/**/*", "specs/**/*", "tools/**/*", "vendor/**/*", "package.json", "package-lock.json"]
+    allowed-files: ["specs/**/*", "tools/**/*", "vendor/**/*", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
@@ -42,7 +42,6 @@ Convert approved planning artifacts into a working, single-page browser utility 
   - Generate the necessary HTML, CSS, and Vanilla JavaScript.
   - **Requirement**: Create the tool page at `/tools/[feature-slug-no-number].html`.
   - **Requirement**: Place tool-specific scripts and assets under `/tools/[feature-slug-no-number]/`.
-  - **Requirement**: Prefer shared, reusable assets in centralized `/styles/` and `/scripts/` folders when functionality or styling should be consistent across tools.
   - **Requirement**: Reuse existing shared CSS and JavaScript before creating new tool-specific files.
   - **Requirement**: Add a `<script type="application/ld+json">` block to the HTML with structured data appropriate to the tool.
   - **Guidance**: The HTML file may contain page-specific metadata, structured data, and light inline setup code when that keeps the tool simple, similar to existing tools.
@@ -50,11 +49,10 @@ Convert approved planning artifacts into a working, single-page browser utility 
 
 3. **Validation**:
   - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality.
-  - Confirm script and stylesheet includes reference committed local files, preferably shared assets in `/vendor/`, `/styles/`, or `/scripts/`.
    - Ensure the UI is clean and functional for a "utility-first" tool.
   - Confirm the page includes valid `application/ld+json` structured data relevant to the tool.
   - Confirm the generated page path uses `feature-slug-no-number` at `/tools/[feature-slug-no-number].html`, not the raw `specs/` folder name if it includes a numeric prefix.
-  - Confirm shared assets live in `/styles/` and `/scripts/` when appropriate, while tool-specific logic stays under `/tools/[feature-slug-no-number]/`.
+  - Confirm tool-specific logic stays under `/tools/[feature-slug-no-number]/`.
 
 4. **Submission**:
    - Use `create-pull-request` to submit the code.

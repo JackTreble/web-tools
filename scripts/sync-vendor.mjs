@@ -26,18 +26,18 @@ async function readInstalledPackageVersion(packageRelativePath) {
 }
 
 await mkdir(vendorDir, { recursive: true });
-await ensureCleanDir('vendor/pdfjs');
-await ensureCleanDir('vendor/pdf-lib');
-await ensureCleanDir('vendor/jspdf');
-await ensureCleanDir('vendor/ffmpeg');
+await ensureCleanDir('tools/vendor/pdfjs');
+await ensureCleanDir('tools/vendor/pdf-lib');
+await ensureCleanDir('tools/vendor/jspdf');
+await ensureCleanDir('tools/vendor/ffmpeg');
 
-await copyFromNodeModules('pdfjs-dist/build/pdf.min.js', 'vendor/pdfjs/pdf.min.js');
-await copyFromNodeModules('pdfjs-dist/build/pdf.worker.min.js', 'vendor/pdfjs/pdf.worker.min.js');
-await copyFromNodeModules('pdf-lib/dist/pdf-lib.min.js', 'vendor/pdf-lib/pdf-lib.min.js');
-await copyFromNodeModules('jspdf/dist/jspdf.umd.min.js', 'vendor/jspdf/jspdf.umd.min.js');
-await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.js', 'vendor/ffmpeg/ffmpeg-core.js');
-await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.wasm', 'vendor/ffmpeg/ffmpeg-core.wasm');
-await copyFromNodeModules('@ffmpeg/ffmpeg/dist/umd/ffmpeg.js', 'vendor/ffmpeg/ffmpeg.js');
+await copyFromNodeModules('pdfjs-dist/build/pdf.min.js', 'tools/vendor/pdfjs/pdf.min.js');
+await copyFromNodeModules('pdfjs-dist/build/pdf.worker.min.js', 'tools/vendor/pdfjs/pdf.worker.min.js');
+await copyFromNodeModules('pdf-lib/dist/pdf-lib.min.js', 'tools/vendor/pdf-lib/pdf-lib.min.js');
+await copyFromNodeModules('jspdf/dist/jspdf.umd.min.js', 'tools/vendor/jspdf/jspdf.umd.min.js');
+await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.js');
+await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.wasm', 'tools/vendor/ffmpeg/ffmpeg-core.wasm');
+await copyFromNodeModules('@ffmpeg/ffmpeg/dist/umd/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg.js');
 
 const ffmpegUmdDir = path.join(nodeModulesDir, '@ffmpeg', 'ffmpeg', 'dist', 'umd');
 const ffmpegUmdEntries = await readdir(ffmpegUmdDir);
@@ -54,27 +54,27 @@ const manifest = {
     pdfjs: {
       package: 'pdfjs-dist',
       version: await readInstalledPackageVersion('pdfjs-dist'),
-      files: ['vendor/pdfjs/pdf.min.js', 'vendor/pdfjs/pdf.worker.min.js']
+      files: ['tools/vendor/pdfjs/pdf.min.js', 'tools/vendor/pdfjs/pdf.worker.min.js']
     },
     pdfLib: {
       package: 'pdf-lib',
       version: await readInstalledPackageVersion('pdf-lib'),
-      files: ['vendor/pdf-lib/pdf-lib.min.js']
+      files: ['tools/vendor/pdf-lib/pdf-lib.min.js']
     },
     jspdf: {
       package: 'jspdf',
       version: await readInstalledPackageVersion('jspdf'),
-      files: ['vendor/jspdf/jspdf.umd.min.js']
+      files: ['tools/vendor/jspdf/jspdf.umd.min.js']
     },
     ffmpeg: {
       package: '@ffmpeg/ffmpeg',
       version: await readInstalledPackageVersion(path.join('@ffmpeg', 'ffmpeg')),
       corePackage: '@ffmpeg/core',
       coreVersion: await readInstalledPackageVersion(path.join('@ffmpeg', 'core')),
-      files: ['vendor/ffmpeg/ffmpeg.js', 'vendor/ffmpeg/ffmpeg-core.js', 'vendor/ffmpeg/ffmpeg-core.wasm', ...ffmpegUmdEntries.filter((entry) => /^\d+\.ffmpeg\.js$/.test(entry)).map((entry) => `vendor/ffmpeg/${entry}`)]
+      files: ['tools/vendor/ffmpeg/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.wasm', ...ffmpegUmdEntries.filter((entry) => /^\d+\.ffmpeg\.js$/.test(entry)).map((entry) => `vendor/ffmpeg/${entry}`)]
     }
   }
 };
 
 await writeFile(path.join(vendorDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
-console.log('Vendor assets synced into /vendor.');
+console.log('Vendor assets synced into /tools/vendor.');
