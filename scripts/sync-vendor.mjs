@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const nodeModulesDir = path.join(rootDir, 'node_modules');
-const vendorDir = path.join(rootDir, 'vendor');
+const toolsVendorDir = path.join(rootDir, 'tools', 'vendor');
 
 async function ensureCleanDir(relativeDir) {
   const absoluteDir = path.join(rootDir, relativeDir);
@@ -25,7 +25,7 @@ async function readInstalledPackageVersion(packageRelativePath) {
   return packageJson.version;
 }
 
-await mkdir(vendorDir, { recursive: true });
+await mkdir(toolsVendorDir, { recursive: true });
 await ensureCleanDir('tools/vendor/pdfjs');
 await ensureCleanDir('tools/vendor/pdf-lib');
 await ensureCleanDir('tools/vendor/jspdf');
@@ -43,13 +43,13 @@ const ffmpegUmdDir = path.join(nodeModulesDir, '@ffmpeg', 'ffmpeg', 'dist', 'umd
 const ffmpegUmdEntries = await readdir(ffmpegUmdDir);
 for (const entry of ffmpegUmdEntries) {
   if (/^\d+\.ffmpeg\.js$/.test(entry)) {
-    await copyFromNodeModules(path.join('@ffmpeg', 'ffmpeg', 'dist', 'umd', entry), path.join('vendor', 'ffmpeg', entry));
+    await copyFromNodeModules(path.join('@ffmpeg', 'ffmpeg', 'dist', 'umd', entry), path.join('tools', 'vendor', 'ffmpeg', entry));
   }
 }
 
 const manifest = {
   generatedAt: new Date().toISOString(),
-  note: 'Runtime assets are checked into /vendor. node_modules is development-only and must not be used at runtime.',
+  note: 'Runtime assets are checked into /tools/vendor. node_modules is development-only and must not be used at runtime.',
   packages: {
     pdfjs: {
       package: 'pdfjs-dist',
@@ -71,10 +71,10 @@ const manifest = {
       version: await readInstalledPackageVersion(path.join('@ffmpeg', 'ffmpeg')),
       corePackage: '@ffmpeg/core',
       coreVersion: await readInstalledPackageVersion(path.join('@ffmpeg', 'core')),
-      files: ['tools/vendor/ffmpeg/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.wasm', ...ffmpegUmdEntries.filter((entry) => /^\d+\.ffmpeg\.js$/.test(entry)).map((entry) => `vendor/ffmpeg/${entry}`)]
+      files: ['tools/vendor/ffmpeg/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.wasm', ...ffmpegUmdEntries.filter((entry) => /^\d+\.ffmpeg\.js$/.test(entry)).map((entry) => `tools/vendor/ffmpeg/${entry}`)]
     }
   }
 };
 
-await writeFile(path.join(vendorDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
+await writeFile(path.join(toolsVendorDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 console.log('Vendor assets synced into /tools/vendor.');

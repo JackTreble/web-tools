@@ -81,9 +81,11 @@ All agent work should produce visible, useful output from the first run.
 - **Language:** HTML5, CSS3, modern JavaScript
 - **Architecture:** ES Modules only. No bundling unless strictly necessary.
 - **Tool Entry Pages:** Tool HTML entry files SHOULD live under `/tools/` as `/tools/[tool-name].html`.
-- **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible files committed under the shared `/vendor/` directory.
-- **Dependency Workflow:** Dev-only npm usage is allowed for pinning and refreshing third-party browser packages, but shipped pages must load committed files from `/vendor/`, not CDNs or `node_modules/`.
+- **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible files committed under the shared `/tools/vendor/` directory.
+- **Dependency Workflow:** Dev-only npm usage is allowed for pinning and refreshing third-party browser packages, but shipped pages must load committed files from `/tools/vendor/`, not CDNs or `node_modules/`.
 - **Styling:** Mobile-first design using standard CSS or lightweight browser-friendly approaches.
+- **Shared Tool Styling:** Reuse `/tools/common.css` for global tokens and shared UI primitives. Keep only tool-specific CSS in `/tools/[feature-slug]/style.css`.
+- **Tool Bootstrap Template:** Start new tools from `/tools/template.html` and then replace placeholders.
 
 ## Agent Workflow Rules
 
@@ -118,7 +120,8 @@ Every tool published on `tools.treble.dev` should have:
 - Keep processing inside the browser.
 - Prefer vanilla HTML, CSS, and JavaScript.
 - Place tool pages under `/tools/*.html` and keep tool-specific logic/assets under `/tools/[feature-slug]/`.
-- Reuse shared vendored libraries from `/vendor/` before adding new third-party assets.
+- Reuse shared vendored libraries from `/tools/vendor/` before adding new third-party assets.
+- Do not duplicate vendor runtime files under tool-specific folders when an equivalent shared vendor file already exists.
 - Avoid backend services, uploads, accounts, OCR services, or server-side PDF processing.
 - If proposing a new tool, mention likely usability controls and likely search phrases.
 

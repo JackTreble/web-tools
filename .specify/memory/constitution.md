@@ -34,7 +34,7 @@ Rationale: automation only works when project conventions are stable, explicit, 
 3. New tools SHOULD expose a simple tool page named `/tools/[feature-slug-no-number].html`.
 4. Tool-specific scripts and assets SHOULD live under `/tools/[feature-slug-no-number]/`, while reusable cross-tool code and styling SHOULD live under `/scripts/` and `/styles/`.
 5. Tool HTML pages under `/tools/` SHOULD include page metadata and a `<script type="application/ld+json">` block with structured data appropriate to the tool.
-6. Shipped runtime assets MUST be stored locally in the repository. A shared `/vendor/` directory SHOULD be used for reusable third-party browser dependencies.
+6. Shipped runtime assets MUST be stored locally in the repository. A shared `/tools/vendor/` directory SHOULD be used for reusable third-party browser dependencies.
 7. Dev-only package managers MAY be used to download, pin, audit, and refresh third-party browser packages, but the final runtime files used by shipped pages MUST be copied into the repository and committed.
 8. User files and derived content MUST remain local to the browser unless the user explicitly downloads or saves them.
 9. New dependencies require a written justification covering necessity, delivery approach, license acceptability, and privacy impact.

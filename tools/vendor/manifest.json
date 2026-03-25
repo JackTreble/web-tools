@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-03-25T19:59:05.248Z",
-  "note": "Runtime assets are checked into /vendor. node_modules is development-only and must not be used at runtime.",
+  "generatedAt": "2026-03-25T20:57:54.857Z",
+  "note": "Runtime assets are checked into /tools/vendor. node_modules is development-only and must not be used at runtime.",
   "packages": {
     "pdfjs": {
       "package": "pdfjs-dist",
       "version": "3.11.174",
       "files": [
-        "vendor/pdfjs/pdf.min.js",
-        "vendor/pdfjs/pdf.worker.min.js"
+        "tools/vendor/pdfjs/pdf.min.js",
+        "tools/vendor/pdfjs/pdf.worker.min.js"
       ]
     },
     "pdfLib": {

@@ -5,7 +5,7 @@ const _scriptBase = (function () {
     const src = document.currentScript && document.currentScript.src;
     return src ? new URL('.', src).href : (window.location.origin + '/tools/video-trimmer-gif-exporter/');
 }());
-const _sharedVendorBase = new URL('../../vendor/ffmpeg/', _scriptBase).href;
+const _sharedVendorBase = new URL('../vendor/ffmpeg/', _scriptBase).href;
 
 // ── State ──────────────────────────────────────────────────────────────
 const state = {

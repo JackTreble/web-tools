@@ -18,7 +18,10 @@ Small, local-first browser utilities published at https://tools.treble.dev.
 ## Project structure
 
 - [tools/index.html](tools/index.html) — landing page for the tool collection
+- [tools/common.css](tools/common.css) — shared tokens and UI primitives used by tool pages
+- [tools/template.html](tools/template.html) — starter template for new tool pages
 - [tools/print-without-black.html](tools/print-without-black.html) — print-without-black tool entry page
+- [tools/print-without-black/style.css](tools/print-without-black/style.css) — print-without-black styles
 - [tools/pdf-redactor.html](tools/pdf-redactor.html) — PDF redaction tool entry page
 - [tools/video-trimmer-gif-exporter.html](tools/video-trimmer-gif-exporter.html) — video trimmer tool entry page
 - [tools/pdf-redactor/main.js](tools/pdf-redactor/main.js) — PDF redactor logic
@@ -29,7 +32,7 @@ Small, local-first browser utilities published at https://tools.treble.dev.
 
 There is no build step. Open files in `/tools/*.html` directly in a browser or serve the folder as a static site.
 
-Third-party browser libraries are loaded from committed files in [vendor](vendor), not external CDNs.
+Third-party browser libraries are loaded from committed files in [tools/vendor](tools/vendor), not external CDNs.
 
 ## Delivery workflow
 
@@ -63,14 +66,17 @@ This repository uses a multi-stage workflow to move from idea discovery to shipp
 
 ### Managing shared vendor assets
 
-- Keep runtime dependencies in [vendor](vendor) so tools remain portable and reusable across workflows.
+- Keep runtime dependencies in [tools/vendor](tools/vendor) so tools remain portable and reusable across workflows.
 - Use npm only as a development-time dependency management workflow.
-- After updating dependency versions, run the vendor sync workflow and commit the resulting changes in [package.json](package.json), [package-lock.json](package-lock.json), and [vendor](vendor).
+- After updating dependency versions, run the vendor sync workflow and commit the resulting changes in [package.json](package.json), [package-lock.json](package-lock.json), and [tools/vendor](tools/vendor).
 
 When adding tools:
 
 - keep processing in the browser
 - prefer vanilla HTML, CSS, and JavaScript
-- load third-party runtime assets from the shared `/vendor/` directory
+- start from [tools/template.html](tools/template.html)
+- include [tools/common.css](tools/common.css) and keep only tool-specific styles in `/tools/[feature-slug]/style.css`
+- load third-party runtime assets from the shared `/tools/vendor/` directory
+- avoid duplicating vendor runtime files inside tool-specific folders when shared copies already exist
 - use descriptive titles, meta descriptions, and clear how-to content
 - include practical controls such as undo, reset, preview, color selection, or quality settings when relevant

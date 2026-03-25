@@ -18,7 +18,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["specs/**/*", "tools/**/*", "vendor/**/*", "package.json", "package-lock.json"]
+    allowed-files: ["specs/**/*", "tools/**/*", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
@@ -46,7 +46,7 @@ Convert approved planning artifacts into a working, single-page browser utility 
   - **Requirement**: Reuse existing shared CSS and JavaScript before creating new tool-specific files.
   - **Requirement**: Add a `<script type="application/ld+json">` block to the HTML with structured data appropriate to the tool.
   - **Guidance**: The HTML file may contain page-specific metadata, structured data, and light inline setup code when that keeps the tool simple, similar to existing tools.
-  - **Standard**: Runtime third-party browser assets must be committed under shared `/vendor/` paths. Dev-only npm usage is allowed to download or refresh those assets, but shipped pages must not depend on CDNs or `node_modules/`. No React. Use modern Browser APIs (ES Modules, CSS Grid/Flexbox).
+  - **Standard**: Runtime third-party browser assets must be committed under shared `/tools/vendor/` paths. Dev-only npm usage is allowed to download or refresh those assets, but shipped pages must not depend on CDNs or `node_modules/`. No React. Use modern Browser APIs (ES Modules, CSS Grid/Flexbox).
 
 3. **Validation**:
   - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality.

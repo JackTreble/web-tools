@@ -30,110 +30,25 @@
           ]
         }
     </script>
-    <style>
-        :root {
-            --primary: #004aad;
-            --primary-hover: #003380;
-            --bg: #f8f9fc;
-            --surface: #ffffff;
-            --text: #333;
-            --border: #e2e8f0;
-        }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 2rem 1rem;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 900px;
-            width: 100%;
-        }
-        h1 { color: var(--primary); margin-top: 0; text-align: center; }
-        .hero-text { text-align: center; color: #555; margin-bottom: 2rem; }
-        .badge { background: #e0f2fe; color: #0284c7; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        
-        .controls-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        label { font-weight: 600; display: block; margin-bottom: 0.5rem; font-size: 0.9rem; }
-        select, input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            box-sizing: border-box;
-            background: white;
-        }
-        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-top: 1rem; }
-        .checkbox-group input { width: auto; margin: 0; }
-        
-        details { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-top: 1rem; }
-        summary { font-weight: 600; cursor: pointer; color: #555; }
-        .advanced-settings { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; }
-        .warning-text { color: #b91c1c; font-size: 0.85rem; margin-top: 4px; }
-        .help-text { color: #666; font-size: 0.85rem; margin-top: 4px; }
-        
-        .btn-group { display: flex; gap: 10px; margin-top: 1.5rem; }
-        button {
-            flex: 1;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, opacity 0.2s;
-        }
-        button:hover { background-color: var(--primary-hover); }
-        button:disabled { background-color: #cbd5e1; cursor: not-allowed; color: #64748b; }
-        #downloadBtn { background-color: #059669; }
-        #downloadBtn:hover { background-color: #047857; }
-        
-        #status { text-align: center; margin-top: 1rem; font-weight: 600; color: #0284c7; }
-        
-        /* Preview Section */
-        .workspace { display: none; margin-top: 2rem; border-top: 2px solid var(--border); padding-top: 2rem; }
-        .pagination { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .pagination button { flex: none; padding: 8px 16px; font-size: 0.9rem; width: auto; }
-        
-        .preview-panels { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .panel { flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: center; }
-        .panel h3 { font-size: 1rem; color: #555; margin-bottom: 0.5rem; }
-        canvas {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            background: white;
-        }
-    </style>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="print-without-black/style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>🖨️ Print Without Black</h1>
-    <p class="hero-text">
-        Printer refusing to print because the black ink is empty? <br>
-        Convert your PDF to a deep blue to force the printer to use your color cartridges. 
-        <span class="badge">100% Free</span> <span class="badge">Private (Local Browser)</span>
-    </p>
+    <header class="tool-header">
+        <a href="index.html" class="back-link">&#8592; All Tools</a>
+        <h1>&#128424;&#65039; Print Without Black</h1>
+        <p class="hero-text">
+            Printer refusing to print because black ink is empty?<br>
+            Convert black-heavy PDF output to color-friendly ink combinations in your browser.
+        </p>
+        <div class="badge-container">
+            <span class="badge">100% Private</span>
+            <span class="badge">No Uploads</span>
+            <span class="badge">Free Forever</span>
+        </div>
+    </header>
     
     <div class="controls-grid">
         <div>
@@ -178,17 +93,17 @@
     </div>
 
     <div class="btn-group">
-        <button id="previewBtn">Load & Preview</button>
-        <button id="downloadBtn" disabled>Download Ready PDF</button>
+        <button class="btn btn-primary" id="previewBtn">Load & Preview</button>
+        <button class="btn btn-success" id="downloadBtn" disabled>Download Ready PDF</button>
     </div>
 
     <div id="status"></div>
 
     <div class="workspace" id="workspace">
         <div class="pagination">
-            <button id="prevPageBtn" disabled>◀ Previous</button>
-            <span id="pageIndicator" style="font-weight: bold;">Page 1 of ?</span>
-            <button id="nextPageBtn">Next ▶</button>
+            <button class="btn btn-secondary" id="prevPageBtn" disabled>&#9664; Previous</button>
+            <span id="pageIndicator"><strong>Page 1 of ?</strong></span>
+            <button class="btn btn-secondary" id="nextPageBtn">Next &#9654;</button>
         </div>
         
         <div class="preview-panels">

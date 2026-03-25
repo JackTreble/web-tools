@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Name | Free Browser-Based Utility | VibeCoded</title>
+    <meta name="description" content="Describe the user problem solved, output format, and privacy behavior in plain language.">
+    <meta name="keywords" content="tool keyword 1, tool keyword 2, browser tool, free utility">
+
+    <link rel="stylesheet" href="common.css">
+    <!-- Optional tool-specific styles: <link rel="stylesheet" href="tool-slug/style.css"> -->
+</head>
+<body>
+
+<div class="container">
+    <header class="tool-header">
+        <a href="index.html" class="back-link">&#8592; All Tools</a>
+        <h1>&#9881;&#65039; Tool Name</h1>
+        <p class="hero-text">
+            Describe what this tool does in one sentence.
+            <strong>Call out privacy/local processing clearly.</strong>
+        </p>
+        <div class="badge-container">
+            <span class="badge">100% Private</span>
+            <span class="badge">No Uploads</span>
+            <span class="badge">Free Forever</span>
+        </div>
+    </header>
+
+    <div class="how-to" aria-label="How to use this tool">
+        <div class="step"><span class="step-num">1</span> Add input</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">2</span> Configure options</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">3</span> Export output</div>
+    </div>
+
+    <label class="file-drop-area" for="fileInput" id="dropArea">
+        <div class="drop-icon" aria-hidden="true">&#128194;</div>
+        <div class="drop-title">Select an Input File</div>
+        <div class="drop-hint">Click here or drag &amp; drop</div>
+        <input type="file" id="fileInput" aria-label="Select input file">
+    </label>
+
+    <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
+
+    <div id="workspace" class="workspace" aria-label="Tool workspace">
+        <!-- Add tool UI here -->
+    </div>
+</div>
+
+<!-- Optional tool logic: <script src="tool-slug/main.js"></script> -->
+</body>
+</html>
