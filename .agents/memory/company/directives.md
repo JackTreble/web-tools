@@ -47,10 +47,19 @@ All tools MUST be 100% client-side. If a feature requires a server-side API (exc
 - **Spec-First:** No code is written until a `spec.md` is approved by the Human Board.
 - **Context Preservation:** Every major change must be logged in `decisions.md` to prevent context drift.
 - **Hallucination Check:** The `code-reviewer` agent must verify that all suggested NPM packages actually exist and are safe to use via CDN.
+- **Duplicate Check:** Before proposing or scoping a new tool, agents must review `/specs/**` plus relevant open and closed GitHub issues.
+- **Bounded Discovery:** Research agents should use short discovery passes, avoid long exploratory runs, and prefer a few validated opportunities over many speculative ones.
+- **Issue Volume Control:** A single research run should create no more than 3 proposal issues, and only for clearly distinct, validated ideas.
+
+## Directive 2.1: Usability Baseline
+- Proposed tools should account for practical user controls when relevant: edit/undo/reset, preview before export, color selection, quality/compression settings, and clear recovery from invalid input.
+- Default behaviors should be safe for non-technical users and avoid destructive surprises.
 
 ## Directive 3: Distribution
 - **Deployment:** Automatic deployment to GitHub Pages on merge to `main`.
-- **SEO:** Every tool must have a descriptive `<title>`, meta tags, and a "How to use" section in the UI.
+- **SEO:** Every tool published on `tools.treble.dev` must have a descriptive `<title>`, useful meta description, relevant meta tags, and a clear "How to use" section in the UI.
+- **Search Intent:** Tool names, headings, and copy should reflect plain-language search terms users are likely to use.
+- **Discoverability:** When proposing or specifying a tool, agents should note likely target queries and ensure the page can stand on its own as a searchable landing page.
 
 ---
 
