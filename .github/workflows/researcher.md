@@ -16,6 +16,7 @@ engine: claude
 safe-outputs:
   create-issue:
     labels: ["status:research-needed", "agent-discovery"]
+    max: 10
 
 tools:
   web: {}
@@ -72,9 +73,11 @@ Select an **appropriate number** of issue-worthy opportunities using this rule:
 - Create **0 issues** if no candidates survive validation
 - Create **1 issue** if only one candidate is high-confidence
 - Create **2 issues** if two strong, clearly distinct opportunities survive
-- Create **3 issues maximum** if there are three strong and non-overlapping opportunities
+- Create **3 issues** if three strong, clearly distinct opportunities survive
+- Create **4 issues** if four strong, clearly distinct opportunities survive
+- Create **5 issues maximum** if there are five strong and non-overlapping opportunities
 
-Never create more than **3 issues** in one run.
+Never create more than **5 issues** in one run.
 
 ### Step 4 — Convert validated candidates with `/speckit.specify`
 For each validated opportunity, invoke `/speckit.specify` (discovery-to-spec mode) to generate a compact proposal spec draft grounded in the candidate evidence.
@@ -143,13 +146,13 @@ These do not need to become full product specs inside the issue, but proposed is
 - Proposed tools should be easy to publish and discover on `tools.treble.dev` with a descriptive page title, useful meta description, and a clear “how to use” section.
 
 ## Time and Scope Limits
-- Target runtime: **2 to 5 minutes**.
-- Hard stop: **10 minutes maximum**.
+- Target runtime: **5 to 7 minutes**.
+- Hard stop: **15 minutes maximum**.
 - Inspect repo context first; do not spend most of the run on web browsing.
-- Use a **small search budget**: at most **3 web queries** and at most **6 external pages** reviewed.
-- Shortlist at most **5 candidates**.
-- Run `/speckit.specify` for at most **3** final candidates.
-- Create at most **3 issues**.
+- Use a **small search budget**: at most **10 web queries** and at most **10 external pages** reviewed.
+- Shortlist at most **7 candidates**.
+- Run `/speckit.specify` for at most **7** final candidates.
+- Create at most **5 issues**.
 - Stop once you have enough evidence to create high-confidence issues; do not continue researching for marginal ideas.
 
 ## Technical Constraint
