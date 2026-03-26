@@ -20,7 +20,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "README.md", "package.json", "package-lock.json"]
+    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "scripts/*", "README.md", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
