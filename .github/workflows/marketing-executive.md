@@ -15,7 +15,7 @@ engine: claude
 
 safe-outputs:
   create-pull-request:
-    allowed-files: ["tools/**/*", "specs/**/*", "README.md"]
+    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "README.md", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
