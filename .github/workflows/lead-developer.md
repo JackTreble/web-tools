@@ -30,6 +30,8 @@ tools:
 ## Goal
 Convert approved planning artifacts into a working, single-page browser utility by running `/speckit.implement`, then open an implementation PR for human review.
 
+Portfolio focus reminder: implement features that serve broad non-technical user tasks and clear paid-tool replacement value. Avoid expanding scope toward low-level developer-only utilities unless explicitly required by the approved spec and justified by mainstream demand evidence.
+
 ## Instructions
 1. **Context Initialization**:
   - Read `AGENTS.md`.

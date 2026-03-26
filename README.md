@@ -8,6 +8,8 @@ Small, local-first browser utilities published at https://tools.treble.dev.
 - no accounts, tracking, or uploads
 - simple static files that run on GitHub Pages
 - useful pages that are easy to find via search
+- prioritize broad non-technical tasks users are often forced to pay for
+- avoid low-level developer-only utilities unless mainstream demand is clearly validated
 
 ## Current tools
 
@@ -41,7 +43,7 @@ This repository uses a multi-stage workflow to move from idea discovery to shipp
 ### 1) Researcher — discover net-new tool ideas
 
 - Workflow: [.github/workflows/researcher.md](.github/workflows/researcher.md)
-- Purpose: find browser-first opportunities that are not duplicates of existing specs/issues.
+- Purpose: find browser-first, paywall-replacement opportunities for broad audiences that are not duplicates of existing specs/issues.
 - Output: proposal issues with evidence, scope rationale, and browser API feasibility.
 
 ### 2) Product Architect — turn approved ideas into planning artifacts
@@ -78,5 +80,7 @@ When adding tools:
 - include [tools/common.css](tools/common.css) and keep only tool-specific styles in `/tools/[feature-slug]/style.css`
 - load third-party runtime assets from the shared `/tools/vendor/` directory
 - avoid duplicating vendor runtime files inside tool-specific folders when shared copies already exist
+- prioritize mainstream tasks with clear paid-tool friction (paywall, watermark, export lock, subscription cap)
+- avoid niche developer helpers (for example Base64/JWT/cron tools) unless evidence shows broad non-technical demand
 - use descriptive titles, meta descriptions, and clear how-to content
 - include practical controls such as undo, reset, preview, color selection, or quality settings when relevant

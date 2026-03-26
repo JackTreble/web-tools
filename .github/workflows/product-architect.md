@@ -28,6 +28,8 @@ tools:
 ## Goal
 Transform the triggering approved issue into implementation-ready planning artifacts by running `/speckit.plan` and `/speckit.tasks`, then route the result back to the issue as a PR.
 
+Portfolio focus reminder: prioritize tools that replace paywalled or heavily restricted workflows for broad non-technical audiences. De-prioritize low-level developer utilities (for example Base64/JWT/cron helpers) unless the issue includes clear evidence of mainstream, non-technical demand.
+
 ## Instructions
 
 **Activation**: This workflow only runs when the `status:approved` label is added to an issue.

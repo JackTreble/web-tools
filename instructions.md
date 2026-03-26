@@ -7,6 +7,8 @@ Use AGENTS.md as the canonical source of project guidance. This file complements
 - 100% client-side processing.
 - No uploads, no backend, no accounts.
 - Solve the specific user problem with minimal complexity.
+- Prioritize mainstream, plain-language user tasks with clear paid-tool friction.
+- De-prioritize low-level developer-only utilities unless broad non-technical demand is clearly validated.
 
 ## Technical Architecture
 - Stack: vanilla HTML5, CSS3, modern JavaScript.
