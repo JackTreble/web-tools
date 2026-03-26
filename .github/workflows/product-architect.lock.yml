@@ -22,7 +22,7 @@
 #
 # Generates plan and tasks from an approved issue/spec, opens a PR, and comments the PR link back on the issue.
 #
-# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"50ea684fa47ac9f5c2ad3a576b49275112bc01cb9380a00c49e7ec6197d88dd7","compiler_version":"v0.64.0","strict":true,"agent_id":"claude"}
+# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"0bc2892c95df48f93aa1dc301a1ae4b0df31799e112b676ab6360c47920e16d5","compiler_version":"v0.64.0","strict":true,"agent_id":"claude"}
 
 name: "Product Architect: Spec-Gen"
 "on":

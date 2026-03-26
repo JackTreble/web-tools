@@ -17,7 +17,7 @@ engine: claude
 safe-outputs:
   create-pull-request:
     allowed-files: ["specs/**/*"]
-  add-comment:
+  add-comment: {}
 
 tools:
   github: {}
@@ -39,31 +39,44 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
 1. **Verify Trigger Context**
   - Confirm the triggering label is `status:approved`.
   - Work from the issue that triggered this workflow.
+
+
 2. **Read the Issue Description**
   - Fetch the triggering issue via the GitHub tool.
-  - Treat the issue title and body/description as the source of truth for priorities and constraints.
-  - Resolve the target feature slug and existing spec path from the issue body, linked PRs, or referenced files under `specs/**`.
-  - If the referenced `spec.md` does not exist in the repository, use the issue body as the spec source — the issue body typically contains a full problem statement, user stories, scope, and acceptance criteria that serve as the planning input.
-  - Only fall back to requesting a spec if the issue body itself lacks sufficient detail to generate a plan.
-3. **Generate planning artifacts with `/speckit.plan` and `/speckit.tasks`**
-  - Invoke `/speckit.plan` using the identified `specs/[feature-slug]/spec.md` (or the issue body if the spec file is absent) as primary input.
+  - Treat the issue title and body/description as the source of truth for the feature request, priorities and constraints.
+  - Extract the problem statement, user goals, constraints, acceptance details, and any implementation hints from the issue body.
+  - If the issue body is sparse, still proceed using the title, body, and any clearly relevant issue metadata instead of blocking.
+3. **Generate the Spec-Kit with `/speckit.specify`**
+  - Invoke `/speckit.specify` using the triggering issue content as input.
+  - Pass a compact but complete prompt that includes:
+    - Issue title
+    - Issue number and URL
+    - Full issue description/body
+    - Any relevant labels or acceptance notes from the issue
+  - Create a feature directory in `specs/[feature-slug]/`
+  - Generate `spec.md` following `.specify/templates/spec-template.md`
+4. **Generate planning artifacts with `/speckit.plan` and `/speckit.tasks`**
+  - Invoke `/speckit.plan` using the `The Tech` section of the triggering issues content and the contents of `instructions.md` as input.
   - Ensure the plan stays grounded in the approved issue scope.
   - Invoke `/speckit.tasks` from the generated plan output.
-  - Produce/update planning files under `specs/[feature-slug]/` (for example `plan.md`, `tasks.md`, and any plan artifacts produced by Speckit).
-4. **Validate the Output**
+  - Produce/update planning files under `specs/[feature-slug]/`
+  - Create a feature directory in `specs/[feature-slug]/` 
+  - Generate `plan.md` following `.specify/templates/plan-template.md`
+  - Generate `tasks.md` following `.specify/templates/tasks-template.md`.
+5. **Validate the Output**
   - Ensure plan/tasks are grounded in the triggering issue and existing spec rather than invented scope.
   - Ensure the spec adheres to the "No-Backend" rule in `AGENTS.md`:
     - Browser APIs only (Canvas, File System, Crypto, etc.)
     - No server-side logic
     - GitHub Pages compatible
-5. **Raise the Pull Request**
+6. **Raise the Pull Request**
   - You **must** call `create_pull_request` to open a PR containing the generated/updated `specs/**/*` planning files.
   - This is a required step — do not skip it. Completing the plan and tasks generation without opening a PR is an incomplete workflow run.
   - Use a PR title/body that clearly references the triggering issue.
   - Do **not** include GitHub auto-closing keywords in the PR title or body (for example: `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved` followed by an issue reference).
   - Reference the issue in a non-closing way (for example: `Related to #<issue-number>`).
   - Capture the created PR URL.
-6. **Comment on the Issue with the PR Link**
+7. **Comment on the Issue with the PR Link**
   - Post a comment on the same triggering issue after the PR is created.
   - The comment must include a direct link to the created PR.
   - The comment must include direct markdown links to the updated planning files (at minimum `tasks.md`, plus any Speckit plan artifact if produced).
@@ -77,8 +90,6 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
     I generated planning artifacts from this approved issue/spec and opened a PR for review.
 
     - PR: [pull-request-url]
-    - Tasks: [specs/[feature-slug]/tasks.md]([tasks-file-url])
-    - Plan: [specs/[feature-slug]/[plan-file]]([plan-file-url])
 
     What happens next:
     1. Review the generated plan and task breakdown.
@@ -86,7 +97,7 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
     3. Request edits or approve the PR for implementation.
     ```
 7. **Failure Handling**
-  - If `/speckit.plan`, `/speckit.tasks`, or PR creation fails, leave a concise issue comment via `add_comment` stating what failed and what needs human follow-up.
+  - If `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, or PR creation fails, leave a concise issue comment via `add_comment` stating what failed and what needs human follow-up.
 
 ## Always Produce a Safe Output
 
