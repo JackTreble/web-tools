@@ -103,6 +103,16 @@ Use the `create-issue` safe-output only after discovery filtering and `/speckit.
 Create one issue per validated opportunity.
 Only create issues for candidates that are not already represented in `/specs/**`, open issues, or closed issues.
 
+When emitting each `create-issue` call, include a valid `temporary_id` using this exact format:
+- Must start with `aw_`
+- Must be followed by **3 to 12 alphanumeric characters** (`A-Za-z0-9`)
+- No hyphens, underscores (after the prefix), spaces, or punctuation
+- Use a unique ID per issue in a run
+- Valid examples: `aw_pdf1`, `aw_Tool123`, `aw_ABC999xyz`
+- Invalid examples: `aw_qr` (too short), `aw_tool-name` (hyphen), `aw_tool_1` (extra underscore)
+
+Preferred pattern for consistency: `aw_<slug><index>` with alphanumeric-only slug text, such as `aw_pdfmerge1`.
+
 ## Proposal Requirements
 - **Title:** [PROPOSAL] - [Tool Name]
 - **Body:**
