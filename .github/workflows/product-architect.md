@@ -57,7 +57,7 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
   - Create a feature directory in `specs/[feature-slug]/`
   - Generate `spec.md` following `.specify/templates/spec-template.md`
 4. **Generate planning artifacts with `/speckit.plan` and `/speckit.tasks`**
-  - Invoke `/speckit.plan` using the `The Tech` section of the triggering issues content and the contents of `instructions.md` (read-only reference) as input.
+  - Invoke `/speckit.plan` using the `The Tech` section of the triggering issues content as input.
   - Ensure the plan stays grounded in the approved issue scope.
   - Invoke `/speckit.tasks` from the generated plan output.
   - Produce planning files only under `specs/[feature-slug]/`

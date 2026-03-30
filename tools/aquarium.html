@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIGUEROA AERO A | VIRTUAL AQUARIUM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --deep-purple: #240b36;
+            --vhs-gray: #808080;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            color: var(--neon-cyan);
+            font-family: 'VT323', monospace;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- THE GRID (Infinite Animation) --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #000000 0%, #240b36 100%);
+            z-index: -2;
+            perspective: 500px;
+        }
+
+        .grid {
+            position: absolute;
+            bottom: -30%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--neon-pink) 1px, transparent 1px),
+                linear-gradient(90deg, var(--neon-pink) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(60deg);
+            animation: grid-move 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+
+        /* --- CRT SCANLINE EFFECT --- */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg, 
+                rgba(255, 0, 0, 0.06), 
+                rgba(0, 255, 0, 0.02), 
+                rgba(0, 0, 255, 0.06)
+            );
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- HEADER & UI --- */
+        header {
+            text-align: center;
+            z-index: 5;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(to bottom, #fff 0%, var(--neon-cyan) 50%, var(--neon-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--neon-pink));
+            letter-spacing: 10px;
+            animation: glitch 3s infinite;
+        }
+
+        .status-bar {
+            border: 2px solid var(--neon-cyan);
+            padding: 5px 20px;
+            margin-top: 10px;
+            background: rgba(0, 255, 255, 0.1);
+            font-size: 1.5rem;
+        }
+
+        /* --- THE AQUARIUM ELEMENTS --- */
+        .aquarium-container {
+            position: relative;
+            width: 80vw;
+            height: 60vh;
+            border: 4px double var(--neon-cyan);
+            margin-top: 20px;
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        /* Floating Statues & Fish */
+        .floating-asset {
+            position: absolute;
+            font-size: 5rem;
+            user-select: none;
+            filter: drop-shadow(0 0 5px var(--neon-cyan));
+        }
+
+        .statue {
+            bottom: 10%;
+            left: 10%;
+            font-size: 10rem;
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .fish {
+            animation: swim 25s linear infinite;
+            top: 20%;
+        }
+
+        .fish-alt {
+            animation: swim 40s linear infinite reverse;
+            top: 60%;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes swim {
+            0% { transform: translateX(-200px) scaleX(1); }
+            49% { transform: translateX(90vw) scaleX(1); }
+            50% { transform: translateX(90vw) scaleX(-1); }
+            99% { transform: translateX(-200px) scaleX(-1); }
+            100% { transform: translateX(-200px) scaleX(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            2% { transform: translate(-5px, 2px); }
+            4% { transform: translate(5px, -2px); }
+            6% { transform: translate(0); }
+            100% { transform: translate(0); }
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="crt-overlay"></div>
+    
+    <div class="background-container">
+        <div class="grid"></div>
+    </div>
+
+    <header>
+        <h1>FIGUEROA AERO A</h1>
+        <div class="status-bar">
+            SYSTEM STATUS: <span style="color: #0f0;">ONLINE</span> | OXYGEN: 98% | AESTHETIC: MAXIMIZED
+        </div>
+    </header>
+
+    <div class="aquarium-container">
+        <div class="floating-asset statue">🗿</div>
+        <div class="floating-asset fish">🐠</div>
+        <div class="floating-asset fish" style="top: 40%; animation-delay: -5s; font-size: 3rem;">🐡</div>
+        <div class="floating-asset fish-alt">🐬</div>
+        <div class="floating-asset fish-alt" style="top: 10%; animation-delay: -15s;">🦐</div>
+        
+        <div style="position: absolute; top: 10px; right: 10px; background: var(--vhs-gray); color: #000; padding: 2px; border: 2px outset #fff; font-family: sans-serif; font-size: 12px; width: 150px;">
+            <div style="background: navy; color: white; padding: 2px 5px;">README.TXT</div>
+            <div style="padding: 5px;">Welcome to the virtual deep. Relax and enjoy the vapor.</div>
+        </div>
+    </div>
+
+    <footer>
+        © 1998-2026 FIGUEROA DIGITAL SYSTEMS // [ESTABLISHED IN THE VIRTUAL VOID]
+    </footer>
+
+</body>
+</html>
