@@ -25,7 +25,7 @@ tools:
 # Intelligence Squad: Product Lead
 
 ## Goal
-Transform the triggering approved issue into implementation-ready planning artifacts by running `/speckit.plan` and `/speckit.tasks`, then open a PR with the generated files and comment the PR link back on the issue.
+Transform the triggering approved issue into implementation-ready planning artifacts (spec.md, plan.md, tasks.md), then open a PR with the generated files and comment the PR link back on the issue.
 
 Portfolio focus reminder: prioritize tools that replace paywalled or heavily restricted workflows for broad non-technical audiences. De-prioritize low-level developer utilities (for example Base64/JWT/cron helpers) unless the issue includes clear evidence of mainstream, non-technical demand.
 
@@ -47,23 +47,17 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
   - Treat the issue title and body/description as the source of truth for the feature request, priorities and constraints.
   - Extract the problem statement, user goals, constraints, acceptance details, and any implementation hints from the issue body.
   - If the issue body is sparse, still proceed using the title, body, and any clearly relevant issue metadata instead of blocking.
-3. **Generate the Spec-Kit with `/speckit.specify`**
-  - Invoke `/speckit.specify` using the triggering issue content as input.
-  - Pass a compact but complete prompt that includes:
-    - Issue title
-    - Issue number and URL
-    - Full issue description/body
-    - Any relevant labels or acceptance notes from the issue
-  - Create a feature directory in `specs/[feature-slug]/`
-  - Generate `spec.md` following `.specify/templates/spec-template.md`
-4. **Generate planning artifacts with `/speckit.plan` and `/speckit.tasks`**
-  - Invoke `/speckit.plan` using the `The Tech` section of the triggering issues content as input.
-  - Ensure the plan stays grounded in the approved issue scope.
-  - Invoke `/speckit.tasks` from the generated plan output.
+3. **Generate the Spec**
+  - Read `.specify/templates/spec-template.md` for the required structure.
+  - Determine the feature slug from the issue (e.g. `003-feature-name`). Check `specs/` for existing numbered directories to choose the next available number.
+  - Create `specs/[feature-slug]/spec.md` by filling in the template with content from the issue: title, problem statement, user stories, acceptance criteria, tech stack, and usability controls.
+  - Do not invoke `/speckit.specify` or any skill tool for this step — write the file directly.
+4. **Generate Planning Artifacts**
+  - Read `.specify/templates/plan-template.md` and `.specify/templates/tasks-template.md` for the required structure.
+  - Create `specs/[feature-slug]/plan.md` by filling in the plan template using the spec and the `The Tech` section from the issue as inputs.
+  - Create `specs/[feature-slug]/tasks.md` by filling in the tasks template from the completed plan, breaking work into small, dependency-ordered implementation tasks.
   - Produce planning files only under `specs/[feature-slug]/`
-  - Create a feature directory in `specs/[feature-slug]/` if it does not exist
-  - Generate `plan.md` following `.specify/templates/plan-template.md`
-  - Generate `tasks.md` following `.specify/templates/tasks-template.md`
+  - Do not invoke `/speckit.plan`, `/speckit.tasks`, or any skill tool for this step — write the files directly.
   - Do not modify `instructions.md` or any files outside the `/specs` directory.
 5. **Validate the Output**
   - Ensure plan/tasks are grounded in the triggering issue and existing spec rather than invented scope.
@@ -99,7 +93,7 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
     3. Request edits or approve the PR for implementation.
     ```
 7. **Failure Handling**
-  - If `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, or PR creation fails, leave a concise issue comment via `add_comment` stating what failed and what needs human follow-up.
+  - If spec, plan, or tasks generation fails, or PR creation fails, leave a concise issue comment via `add_comment` stating what failed and what needs human follow-up.
 
 ## Always Produce a Safe Output
 
