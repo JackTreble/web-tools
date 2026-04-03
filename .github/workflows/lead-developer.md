@@ -12,7 +12,7 @@ on:
     inputs:
       spec_id:
         description: "Spec folder name or numeric ID (e.g., 004-qr-code-generator or 4)"
-        required: false
+        required: true
         type: string
 
 permissions:
@@ -43,11 +43,19 @@ Portfolio focus reminder: implement features that serve broad non-technical user
 ## Instructions
 1. **Context Initialization**:
   - Read `AGENTS.md`.
-  - Determine target spec using this priority:
-    1. If `workflow_dispatch` input `spec_id` is provided, resolve it to `specs/[feature-slug]/`:
+  - Read runtime context first:
+    - `event_name` from `github.event_name`
+    - `dispatch_spec_id` from `github.event.inputs.spec_id` (when present)
+  - Determine target spec using this strict routing:
+    1. If `event_name == workflow_dispatch` and `dispatch_spec_id` is non-empty:
+       - Resolve `dispatch_spec_id` to `specs/[feature-slug]/`.
        - Accept full folder names like `004-qr-code-generator`.
        - Accept numeric IDs like `4` by matching to zero-padded folder prefixes (for example `4` → `004-...`).
-    2. If no `spec_id` is provided, identify the `specs/[feature-slug]/` folder introduced or updated by the triggering merged planning PR (existing behavior).
+       - **Do not** use changed-file heuristics in this mode.
+    2. If `event_name == workflow_dispatch` and `dispatch_spec_id` is empty:
+       - Stop and report that `spec_id` is required for manual dispatch.
+    3. If `event_name == push`:
+       - Identify the `specs/[feature-slug]/` folder introduced or updated by the triggering merged planning PR (existing behavior).
   - If `spec_id` does not resolve to exactly one spec folder, stop and report the mismatch.
   - Read `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md`.
   - Derive `feature-slug-no-number` from the folder name by removing any leading numeric prefix (for example, `001-print-tool` → `print-tool`).
