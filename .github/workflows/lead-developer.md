@@ -9,6 +9,11 @@ on:
       - 'specs/**/plan.md'
       - 'specs/**/tasks.md'
   workflow_dispatch:
+    inputs:
+      spec_id:
+        description: "Spec folder name or numeric ID (e.g., 004-qr-code-generator or 4)"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -20,19 +25,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files:
-      - "README.md"
-      - "package.json"
-      - "package-lock.json"
-      - "tools/*"
-      - "tools/**"
-      - "tools/**/*"
-      - "specs/*"
-      - "specs/**"
-      - "specs/**/*"
-      - "scripts/*"
-      - "scripts/**"
-      - "scripts/**/*"
+    protected-files: allowed
   threat-detection: false
   add-comment: {}
 
@@ -50,13 +43,21 @@ Portfolio focus reminder: implement features that serve broad non-technical user
 ## Instructions
 1. **Context Initialization**:
   - Read `AGENTS.md`.
-  - Identify the `specs/[feature-slug]/` folder introduced or updated by the merged planning PR that triggered this run.
+  - Determine target spec using this priority:
+    1. If `workflow_dispatch` input `spec_id` is provided, resolve it to `specs/[feature-slug]/`:
+       - Accept full folder names like `004-qr-code-generator`.
+       - Accept numeric IDs like `4` by matching to zero-padded folder prefixes (for example `4` → `004-...`).
+    2. If no `spec_id` is provided, identify the `specs/[feature-slug]/` folder introduced or updated by the triggering merged planning PR (existing behavior).
+  - If `spec_id` does not resolve to exactly one spec folder, stop and report the mismatch.
   - Read `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md`.
   - Derive `feature-slug-no-number` from the folder name by removing any leading numeric prefix (for example, `001-print-tool` → `print-tool`).
+  - Determine existing implementation status by checking for `/tools/[feature-slug-no-number].html` and `/tools/[feature-slug-no-number]/`.
 
-2. **Implementation via `/speckit.implement`**:
+2. **Implementation / Reconciliation via `/speckit.implement`**:
   - Invoke `/speckit.implement` using `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md` as the source of truth.
-  - Implement only the approved scope represented in those planning files.
+  - If implementation does **not** exist, implement the feature from scratch using only approved scope from the planning files.
+  - If implementation **does** exist, review current code against `spec.md` and `tasks.md`, identify gaps, and update only what is needed to achieve spec compliance.
+  - Do not expand beyond approved scope while reconciling.
   - Generate the necessary HTML, CSS, and Vanilla JavaScript.
   - **Requirement**: Create the tool page at `/tools/[feature-slug-no-number].html`.
   - **Requirement**: Place tool-specific scripts and assets under `/tools/[feature-slug-no-number]/`.
@@ -71,6 +72,7 @@ Portfolio focus reminder: implement features that serve broad non-technical user
     - Run `npm run vendor:update` to refresh committed runtime vendor assets and regenerate the vendor manifest.
 
 3. **Validation**:
+  - Confirm whether this run was an initial implementation or a reconciliation update, and validate accordingly.
   - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality.
    - Ensure the UI is clean and functional for a "utility-first" tool.
   - Confirm the page includes valid `application/ld+json` structured data relevant to the tool.
@@ -81,7 +83,12 @@ Portfolio focus reminder: implement features that serve broad non-technical user
 4. **Submission**:
    - Use `create-pull-request` to submit the code.
   - **PR Title**: "[BUILD] - {{feature-slug-no-number}} Implementation"
-  - **PR Body**: List the features implemented, note any shared assets or vendored dependencies used, and explain how to run it by opening `/tools/[feature-slug-no-number].html`.
+  - **PR Body**: 
+    - State whether the run was "new implementation" or "spec reconciliation".
+    - List implemented or reconciled features.
+    - For reconciliation runs, include a short "Spec vs Implementation" summary of gaps fixed.
+    - Note any shared assets or vendored dependencies used.
+    - Explain how to run it by opening `/tools/[feature-slug-no-number].html`.
   - Include a single explicit GitHub closing reference to the original feature issue (for example: `Closes #<issue-number>`), so the issue closes only when this implementation PR is merged.
 
 5. **Notification**:
